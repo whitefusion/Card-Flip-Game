@@ -11,7 +11,9 @@
         <div class="restart"><i class="fa fa-repeat"></i></div>
     </section>
 
-    <ul class="deck">
-
+    <ul class="deck" >
+        <li class="card" ng-repeat="obj in eg.randItems track by $index" ng-class="eg.randItemStatus[obj]:match">
+            <i class="fa" ng-class="obj"></i>
+        </li>
     </ul>
 </header>
