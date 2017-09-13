@@ -1,0 +1,17 @@
+<header>
+    <!-- <h1>Matching Game</h1> -->
+    <section class="score-panel">
+        <ul class="stars" >
+            <li ng-repeat="n in [] | range: 5">
+                <i class="fa fa-star" ng-if="n<eg.stars"></i>
+                <i class="fa fa-star-o" ng-if="n>=eg.stars"></i>
+            </li>
+        </ul>
+        <span class="moves">{{eg.moves}} </span>Moves
+        <div class="restart"><i class="fa fa-repeat"></i></div>
+    </section>
+
+    <ul class="deck">
+
+    </ul>
+</header>
