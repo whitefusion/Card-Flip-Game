@@ -9,6 +9,7 @@
  */
 angular.module('memoGameApp')
   .controller('EngineCtrl', function () {
+    let eg = this;
     this.moves = 0;
     this.stars = 3;
 
@@ -18,6 +19,8 @@ angular.module('memoGameApp')
     this.width = 4;
     this.height = 4;
 
+    this.previousClick = -1;
+
     this.itemsCollection = ["fa-bomb","fa-bicycle","fa-cube",
     "fa-paper-plane-o","fa-leaf","fa-diamond",
     "fa-bolt","fa-anchor","fa-superpower",
@@ -25,25 +28,65 @@ angular.module('memoGameApp')
     "fa-balance-scale","fa-bath","fa-birthday-cake",
     "fa-bug","fa-cog","fa-flighter-jet"];
 
-    this.randItems = [];
+    this.randCards = [];
+
     this.randItemStatus = {};
 
+    this.randViewStatus = {};
     this.initialGame = function() {
+        this.moves = 0;
         this.stopWatch = 0;
+        this.randCards = [];
+        this.previousClick = -1;
+        this.randItemStatus = {};
 
         const numItems = this.width*this.height/2;
         let randTokens = randomPermute(this.itemsCollection.length);
 
         for (let i in randTokens.slice(0,numItems)){
             let temp = this.itemsCollection[i];
-            this.randItems.push(temp);
-            this.randItems.push(temp);
-            this.randItemStatus[temp]=false;
+            this.randCards.push(temp);
+            this.randCards.push(temp);
         }
 
-        shuffle(this.randItems);
+        shuffle(this.randCards);
+
+        for(let i = 0; i < this.randCards.length; i++){
+            this.randItemStatus[i]='';
+            this.randViewStatus[i]='hidden';
+        }
     }
 
+    this.cardClick = function(id) {
+        if(this.randItemStatus[id] == 'match')
+            return;
+
+        this.moves+=1;
+        eg.randItemStatus[id] = 'open';
+        eg.randViewStatus[id] = '';
+
+        // if match
+        if(eg.previousClick!=-1 && eg.previousClick != id && (eg.randCards[eg.previousClick] == eg.randCards[id])){
+            eg.randItemStatus[id] = 'match';
+            eg.randItemStatus[eg.previousClick] = 'match';
+            eg.previousClick = -1;
+        } else { // if not match
+            // if a previous click does not exist
+            if(eg.previousClick== -1){
+                eg.randItemStatus[id] = 'open';
+                eg.randViewStatus[id] = '';
+                eg.previousClick = id;
+            }
+            else { // if previous click exist
+                eg.randItemStatus[eg.previousClick] = '';
+                eg.randViewStatus[eg.previousClick] = 'hidden';
+                eg.randItemStatus[id] = '';
+                eg.randViewStatus[id] = 'hidden';
+                eg.previousClick = -1;
+            }
+        }
+
+    }
 
     this.initialGame();
 
@@ -59,4 +102,12 @@ angular.module('memoGameApp')
         shuffle(idList);
         return idList;
     }
+
+    function wait(ms){
+        var d = new Date();
+        var d2 = null;
+        do { d2 = new Date(); }
+        while(d2-d < ms);
+    }
   });
+
