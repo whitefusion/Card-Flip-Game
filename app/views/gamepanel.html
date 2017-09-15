@@ -10,8 +10,8 @@
     <div class="restart" ng-click="eg.initialGame()"><i class="fa fa-repeat"></i></div>
 </section>
 
-<ul class="deck" >
+<ul class="deck">
     <li class="card" ng-repeat="obj in eg.randCards track by $index" ng-click="eg.cardClick($index)" ng-class="eg.randItemStatus[$index]">
-        <i class="fa" ng-class="[obj,eg.randViewStatus[$index]]"></i>
+        <i class="fa" ng-class="[obj, eg.randViewStatus[$index]]"></i>
     </li>
 </ul>
