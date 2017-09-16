@@ -7,7 +7,7 @@
         </li>
     </ul>
     <span class="moves">{{eg.moves}} </span>Moves
-    <span class="timer"></span>{{eg.stopWatch}}
+    <span class="timer"></span>{{eg.stopWatch.returnTime()}}
     <div class="restart" ng-click="eg.initialGame()"><i class="fa fa-repeat"></i></div>
 </section>
 
@@ -17,6 +17,8 @@
         <div class="info-window">
             <span class="close" ng-click='eg.setFalse()'>&times;</span>
             <p>Congratulations, all matched !</p>
+            <p>Time used: {{eg.stopWatch.returnTime()}}</p>
+            <p>Moves: {{eg.moves}}</p>
             <button type="button" ng-click='eg.initialGame()' class="btn btn-success">Play Again !</button>
         </div>
     </div>
