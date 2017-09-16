@@ -59,43 +59,47 @@ angular.module('memoGameApp')
     }
 
     this.cardClick = (id) => {
+        console.log(id);
         if(eg.randItemStatus[id] == 'match')
             return;
 
         eg.moves+=1;
 
-        // eg.randItemStatus[id] = 'open';
-        eg.randItemStatus[id] = 'animate';
-        eg.randViewStatus[id] = 'fadeIn';
-    }
+        // eg.randItemStatus[id] = 'flipUp';
+        // eg.randViewStatus[id] = 'fadeIn';
 
-    this.process = (id) => {
-        if(eg.previousClick == id)
-            return;
-        console.log(id);
         // if match
         if(eg.previousClick!=-1 && eg.previousClick != id && (eg.randCards[eg.previousClick] == eg.randCards[id])){
             eg.randItemStatus[id] = 'match';
+            eg.randViewStatus[id] = 'fadeIn';
             eg.randItemStatus[eg.previousClick] = 'match';
+            eg.randViewStatus[eg.previousClick] = 'fadeIn';
             eg.previousClick = -1;
         } else { // if not match
             // if a previous click does not exist
-            if(eg.previousClick== -1){
-                // eg.randItemStatus[id] = 'open';
-                // eg.randViewStatus[id] = '';
+            if(eg.previousClick == -1 || eg.previousClick == id){
+                eg.randItemStatus[id] = 'flipUp';
+                eg.randViewStatus[id] = 'fadeIn';
                 eg.previousClick = id;
             }
+            else if(eg.randItemStatus[eg.previousClick]=='rollBack'){
+                eg.randItemStatus[id] = 'flipUp';
+                eg.randViewStatus[id] = 'fadeIn';
+                eg.randItemStatus[eg.previousClick]='';
+                eg.randViewStatus[eg.previousClick]='hidden';
+                eg.previousClick = -1;
+            }
             else { // if previous click exist
-                console.log(eg.previousClick);
-                eg.randItemStatus[eg.previousClick] = '';
-                eg.randViewStatus[eg.previousClick] = 'hidden';
-                eg.randItemStatus[id] = '';
-                eg.randViewStatus[id] = 'hidden';
+                eg.randItemStatus[eg.previousClick] = 'rollBack';
+                eg.randViewStatus[eg.previousClick] = 'fadeOut';
+                eg.randItemStatus[id] = 'rollBack';
+                eg.randViewStatus[id] = 'fadeOut';
                 eg.previousClick = -1;
             }
         }
         // console.log(eg.previousClick);
     }
+
 
     this.initialGame();
 
