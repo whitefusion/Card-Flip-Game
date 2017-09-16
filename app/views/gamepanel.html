@@ -1,17 +1,29 @@
 <!-- <h1>Matching Game</h1> -->
 <section class="score-panel">
     <ul class="stars" >
-        <li ng-repeat="n in [] | range: 5">
+        <li ng-repeat="n in [] | range: 3">
             <i class="fa fa-star" ng-if="n<eg.stars"></i>
             <i class="fa fa-star-o" ng-if="n>=eg.stars"></i>
         </li>
     </ul>
     <span class="moves">{{eg.moves}} </span>Moves
+    <span class="timer"></span>{{eg.stopWatch}}
     <div class="restart" ng-click="eg.initialGame()"><i class="fa fa-repeat"></i></div>
 </section>
 
-<ul class="deck">
-    <li class="card" ng-repeat="obj in eg.randCards track by $index" ng-click="eg.cardClick($index)" ng-class="eg.randItemStatus[$index]">
-        <i class="fa" ng-class="[obj, eg.randViewStatus[$index]]"></i>
-    </li>
-</ul>
+<div class='main'>
+
+    <div class='ending-panel' ng-if='eg.end'>
+        <div class="info-window">
+            <span class="close" ng-click='eg.setFalse()'>&times;</span>
+            <p>Congratulations, all matched !</p>
+            <button type="button" ng-click='eg.initialGame()' class="btn btn-success">Play Again !</button>
+        </div>
+    </div>
+
+    <ul class="deck">
+        <li class="card" ng-repeat="obj in eg.randCards track by $index" ng-click="eg.cardClick($index)" ng-class="eg.randItemStatus[$index]">
+            <i class="fa" ng-class="[obj, eg.randViewStatus[$index]]"></i>
+        </li>
+    </ul>
+</div>

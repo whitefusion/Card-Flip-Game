@@ -1,3 +1,9 @@
+/*
+ *
+ * Body style
+ *
+ */
+
 html {
     box-sizing: border-box;
 }
@@ -21,17 +27,20 @@ body {
 }
 
 .game-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    width: 100%;
 }
 
 h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
-
 }
+
+
+/*
+ *
+ * deck style
+ *
+ */
 
 .deck {
     width: 480px;
@@ -87,7 +96,7 @@ h1 {
 }
 
 .deck .card.rollBack{
-    animation: rollBack 1s forwards;
+    animation: rollBack 1.5s forwards;
 }
 
 @keyframes rollBack {
@@ -96,7 +105,7 @@ h1 {
         background: #ff6044;
     }
 
-    60% {
+    80% {
         transform:rotateY(0);
         background: #ff6044;
     }
@@ -109,22 +118,23 @@ h1 {
 }
 
 .deck .card.match{
+    transform:rotateY(180deg);
     cursor: default;
-    background: #ffe556;
+    background: #f9c404;
 }
 
 .deck .card .fadeIn{
     transform:rotateY(180deg);
     animation-name: fadeIn;
     animation-fill-mode: forwards;
-    animation-duration:0.4s;
+    animation-duration:0.2s;
 }
 
 @keyframes fadeIn {
     0% {
         opacity: 0;
     }
-    30% {
+    80% {
         opacity: 0;
     }
     100% {
@@ -135,7 +145,8 @@ h1 {
 .deck .card .fadeOut{
     animation-name:fadeOut;
     animation-fill-mode: forwards;
-    animation-duration: 1s;
+    animation-duration: 1.2s;
+    /*animation-timing-function:ease-in;*/
 }
 
 @keyframes fadeOut {
@@ -143,8 +154,8 @@ h1 {
         opacity: 1.0;
     }
 
-    90% {
-        opactiy:1.0;
+    99% {
+        opacity:1.0;
     }
 
     100%{
@@ -152,11 +163,52 @@ h1 {
     }
 }
 
+/*
+ *
+ * Ending Panel
+ *
+ */
+
+.main {
+    display: relative;
+    margin: 20px auto;
+    width: 480px;
+    height: 500px;
+}
+
+.ending-panel {
+    z-index: 1;
+    background-color: rgba(0,0,0,0.4);
+    width: 480px;
+    height: 500px;
+    position: absolute;
+    margin: auto;
+    /*text-align: center;*/
+    border-radius: 10px;
+}
+
+.info-window {
+    background: linear-gradient(#ef4f7a, #efb94f);
+    width: 280px;
+    height: 100px;
+    margin: auto;
+    padding: 18px;
+    margin-top: 160px;
+    border-radius: 8px;
+    text-align: center;
+    /*box-shadow: 5px 6px 2px 6px rgba(128, 60, 128, 0.4);*/
+}
+/*
+ *
+ * score panel style
+ *
+ */
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 480px;
     margin-bottom: 15px;
     margin-top: 5px;
+    margin:auto;
 }
 
 .score-panel .stars {
@@ -174,4 +226,10 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.score-panel .timer {
+    display: inline-block;
+    width: 110px;
+    margin: auto;
 }
