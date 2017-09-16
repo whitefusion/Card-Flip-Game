@@ -20,6 +20,7 @@ angular.module('memoGameApp')
     this.height = 4;
 
     this.previousClick = -1;
+    this.previousPair = new Array(-1,-1);
 
     this.itemsCollection = ["fa-bomb","fa-bicycle","fa-cube",
     "fa-paper-plane-o","fa-leaf","fa-diamond",
@@ -39,6 +40,7 @@ angular.module('memoGameApp')
         this.stopWatch = 0;
         this.randCards = [];
         this.previousClick = -1;
+        this.previousPair = [-1,-1];
         this.randItemStatus = {};
 
         const numItems = this.width*this.height/2;
@@ -60,13 +62,17 @@ angular.module('memoGameApp')
 
     this.cardClick = (id) => {
         console.log(id);
-        if(eg.randItemStatus[id] == 'match')
+        if(eg.randItemStatus[id] == 'match' || eg.previousClick == id)
             return;
 
         eg.moves+=1;
 
-        // eg.randItemStatus[id] = 'flipUp';
-        // eg.randViewStatus[id] = 'fadeIn';
+        if(eg.previousPair[0]!=-1 && eg.randItemStatus[eg.previousPair[0]] == 'rollBack'){
+            eg.randItemStatus[eg.previousPair[0]]='';
+            eg.randViewStatus[eg.previousPair[0]]='hidden';
+            eg.randItemStatus[eg.previousPair[1]]='';
+            eg.randViewStatus[eg.previousPair[1]]='hidden';
+        }
 
         // if match
         if(eg.previousClick!=-1 && eg.previousClick != id && (eg.randCards[eg.previousClick] == eg.randCards[id])){
@@ -77,24 +83,20 @@ angular.module('memoGameApp')
             eg.previousClick = -1;
         } else { // if not match
             // if a previous click does not exist
-            if(eg.previousClick == -1 || eg.previousClick == id){
+            if(eg.previousClick == -1){
                 eg.randItemStatus[id] = 'flipUp';
                 eg.randViewStatus[id] = 'fadeIn';
                 eg.previousClick = id;
-            }
-            else if(eg.randItemStatus[eg.previousClick]=='rollBack'){
-                eg.randItemStatus[id] = 'flipUp';
-                eg.randViewStatus[id] = 'fadeIn';
-                eg.randItemStatus[eg.previousClick]='';
-                eg.randViewStatus[eg.previousClick]='hidden';
-                eg.previousClick = -1;
             }
             else { // if previous click exist
                 eg.randItemStatus[eg.previousClick] = 'rollBack';
                 eg.randViewStatus[eg.previousClick] = 'fadeOut';
                 eg.randItemStatus[id] = 'rollBack';
                 eg.randViewStatus[id] = 'fadeOut';
+                eg.previousPair[0] = eg.previousClick;
+                eg.previousPair[1] = id;
                 eg.previousClick = -1;
+
             }
         }
         // console.log(eg.previousClick);
