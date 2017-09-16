@@ -103,17 +103,18 @@ angular.module('memoGameApp')
 
         if(eg.matchCount == eg.randCards.length/2){
             eg.end = true;
-            eg.begin = 0;
+            eg.begin = -1;
         }
 
     }
 
     this.getTime =()=> {
-        if(this.begin)
+        if(this.begin != 0)
             return st.formatTime;
         else
             return "00:00:00";
     }
+
     this.setFalse =()=> eg.end = false;
 
     function checkStatus(id){
@@ -166,7 +167,7 @@ angular.module('memoGameApp')
             stopTime;
 
             function updateTime(){
-                if(begin){
+                if(begin > 0){
                     let curr = new Date().getTime();
                     let dist = curr - begin;
                     let hour = Math.floor((dist%(1000*60*60*24))/(1000*60*60)).toString();
@@ -179,9 +180,15 @@ angular.module('memoGameApp')
 
             scope.$watch(attrs.timer, function(value){
                 begin = value;
+                if(!begin){
+                    $interval.cancel(stopTime);
+                    element.text("00:00:00");
+                } else {
+                    stopTime = $interval(updateTime,1000);
+                }
             });
 
-            stopTime = $interval(updateTime,1000);
+
 
             element.on('$destroy',function(){
                 $interval.cancel(stopTime);
