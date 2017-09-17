@@ -19,6 +19,14 @@
             <p>Congratulations, all matched !</p>
             <p>Time used: <span timer="eg.begin">{{eg.getTime()}}</span></p>
             <p>Moves: {{eg.moves}}</p>
+            <p class="rating">Ratings:
+                <ul class="stars" >
+                    <li ng-repeat="n in [] | range: 3">
+                        <i class="fa fa-star" ng-if="n<eg.stars"></i>
+                        <i class="fa fa-star-o" ng-if="n>=eg.stars"></i>
+                    </li>
+                </ul>
+            </p>
             <button type="button" ng-click='eg.initialGame()' class="btn btn-success">Play Again !</button>
         </div>
     </div>

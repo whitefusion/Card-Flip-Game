@@ -98,6 +98,7 @@ angular.module('memoGameApp')
             this.begin = new Date().getTime();
         }
 
+        updateRates();
         checkStatus(id);
         updateStatus(id);
 
@@ -116,6 +117,13 @@ angular.module('memoGameApp')
     }
 
     this.setFalse =()=> eg.end = false;
+
+    function updateRates(){
+        if(eg.moves < 50 && eg.moves > 35)
+            eg.stars = 2;
+        else if(eg.moves >= 50)
+            eg.stars = 1;
+    }
 
     function checkStatus(id){
         if(eg.previousPair[0]!=-1 && eg.randItemStatus[eg.previousPair[0]] == 'rollBack'){
@@ -188,8 +196,6 @@ angular.module('memoGameApp')
                 }
             });
 
-
-
             element.on('$destroy',function(){
                 $interval.cancel(stopTime);
             });
@@ -219,42 +225,4 @@ function wait(ms){
     while(d2-d < ms);
 }
 
-
-// class StopWatch {
-//     constructor() {
-//         this.running = false;
-//         this.formatTime='00:00:00';
-//     }
-
-//     reset() {
-//         this.running = false;
-//         this.formatTime = '00:00:00';
-//     }
-
-//     returnTime(){
-//         return this.formatTime;
-//     }
-
-//     start() {
-//         this.running =true;
-//         let begin = new Date().getTime();
-
-//         setInterval(function(){
-//             if(this.running){
-//                 let curr = new Date().getTime();
-//                 console.log(curr);
-//                 let dist = curr-now;
-//                 let hour = Math.floor((dist%(1000*60*60*24))/(1000*60*60));
-//                 let minute = Math.floor((dist%(1000*60*60))/(1000*60));
-//                 let second = Math.floor((dist%(1000*60))/1000);
-//                 this.formatTime = `${hour}:${minute}:${second}`;
-//             }
-//         },1000);
-//     }
-
-//     stop() {
-//         this.running = false;
-//     }
-
-// }
 

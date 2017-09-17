@@ -189,14 +189,18 @@ h1 {
 
 .info-window {
     background: linear-gradient(#ef4f7a, #efb94f);
-    width: 280px;
-    height: 200px;
+    width: 320px;
+    height: 220px;
     margin: auto;
-    padding: 35px 15px;
+    padding: 28px 15px;
     margin-top: 120px;
     border-radius: 8px;
     text-align: center;
     /*box-shadow: 5px 6px 2px 6px rgba(128, 60, 128, 0.4);*/
+}
+
+.info-window .rating {
+    display: inline-block;
 }
 /*
  *
@@ -212,14 +216,14 @@ h1 {
     margin:auto;
 }
 
-.score-panel .stars {
+.stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li{
+.stars li{
     list-style: none;
     display: inline-block;
 }
