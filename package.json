@@ -39,5 +39,8 @@
   },
   "scripts": {
     "test": "karma start test/karma.conf.js"
+  },
+  "dependencies": {
+    "package.json": "^2.0.1"
   }
 }

@@ -18,5 +18,8 @@
         "dist/js/bootstrap.js"
       ]
     }
+  },
+  "resolutions": {
+    "webcomponentsjs": "~0.5.4"
   }
 }
