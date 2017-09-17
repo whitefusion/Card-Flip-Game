@@ -80,6 +80,23 @@ angular.module('memoGameApp')
         }
     }
 
+    this.reset = function() {
+        this.moves = 0;
+        this.begin = 0;
+        this.stars = 3;
+
+        this.previousClick = -1;
+        this.previousPair = [-1,-1];
+
+        this.matchCount = 0;
+        this.end = false;
+
+        for(let i in this.randItemStatus){
+            this.randItemStatus[i]='';
+            this.randViewStatus[i]='hidden';
+        }
+    }
+
     this.initialGame();
 
     /*
@@ -91,6 +108,8 @@ angular.module('memoGameApp')
     this.cardClick = (id) => {
         if(eg.randItemStatus[id] == 'match' || eg.previousClick == id)
             return;
+
+        console.log(eg.randItemStatus[id]);
 
         eg.moves+=1;
 
