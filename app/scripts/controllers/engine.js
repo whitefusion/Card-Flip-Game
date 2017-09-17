@@ -70,7 +70,7 @@ angular.module('memoGameApp')
 
             this.randCards.push(temp);
             this.randCards.push(temp);
-        })
+        });
 
         shuffle(this.randCards);
 
@@ -78,7 +78,7 @@ angular.module('memoGameApp')
             this.randItemStatus[i]='';
             this.randViewStatus[i]='hidden';
         }
-    }
+    };
 
     this.reset = function() {
         this.moves = 0;
@@ -95,7 +95,7 @@ angular.module('memoGameApp')
             this.randItemStatus[i]='';
             this.randViewStatus[i]='hidden';
         }
-    }
+    };
 
     this.initialGame();
 
@@ -125,15 +125,14 @@ angular.module('memoGameApp')
             eg.end = true;
             eg.begin = -1;
         }
-
-    }
+    };
 
     this.getTime =()=> {
         if(this.begin != 0)
             return st.formatTime;
         else
             return "00:00:00";
-    }
+    };
 
     this.setFalse =()=> eg.end = false;
 
@@ -218,10 +217,9 @@ angular.module('memoGameApp')
             element.on('$destroy',function(){
                 $interval.cancel(stopTime);
             });
-        }
+        };
     }
 ]);
-
 
 
 function shuffle(o) {
