@@ -238,3 +238,24 @@ h1 {
     margin: auto;
     text-align: center;
 }
+
+@media screen and (max-width: 600px) {
+    .deck {
+        width: 300px;
+        height: 310px;
+        min-height: 300px;
+        margin: auto 18%;
+        margin-top: 50px;
+
+    }
+
+    .score-panel{
+        width: 300px;
+        margin: auto;
+    }
+
+    .deck .card{
+        width: 60px;
+        height: 60px;
+    }
+}
