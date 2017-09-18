@@ -26,6 +26,7 @@ angular.module('memoGameApp')
     let eg = this;
     this.moves = 0;
     this.stars = 3;
+    this.click = 0;
 
     this.begin = 0;
     this.width = 4;
@@ -51,7 +52,9 @@ angular.module('memoGameApp')
     this.initialGame = function() {
 
         this.moves = 0;
+        this.click = 0;
         this.begin = 0;
+        this.stars = 3;
         this.randCards = [];
 
         this.previousClick = -1;
@@ -84,6 +87,7 @@ angular.module('memoGameApp')
         this.moves = 0;
         this.begin = 0;
         this.stars = 3;
+        this.click = 0;
 
         this.previousClick = -1;
         this.previousPair = [-1,-1];
@@ -106,14 +110,13 @@ angular.module('memoGameApp')
      */
 
     this.cardClick = (id) => {
+        // check if it's a valid click
         if(eg.randItemStatus[id] == 'match' || eg.previousClick == id)
             return;
 
-        console.log(eg.randItemStatus[id]);
-
-        eg.moves+=1;
-
-        if(eg.moves == 1){
+        eg.click +=1;
+        // start timing at the very first click
+        if(eg.click == 1){
             this.begin = new Date().getTime();
         }
 
@@ -121,6 +124,7 @@ angular.module('memoGameApp')
         checkStatus(id);
         updateStatus(id);
 
+        // check if all match
         if(eg.matchCount == eg.randCards.length/2){
             eg.end = true;
             eg.begin = -1;
@@ -137,13 +141,14 @@ angular.module('memoGameApp')
     this.setFalse =()=> eg.end = false;
 
     function updateRates(){
-        if(eg.moves < 50 && eg.moves > 35)
+        if(eg.moves < 25 && eg.moves > 18)
             eg.stars = 2;
-        else if(eg.moves >= 50)
+        else if(eg.moves >= 25)
             eg.stars = 1;
     }
 
     function checkStatus(id){
+        // modify status of previous pair
         if(eg.previousPair[0]!=-1 && eg.randItemStatus[eg.previousPair[0]] == 'rollBack'){
             eg.randItemStatus[eg.previousPair[0]]='';
             eg.randViewStatus[eg.previousPair[0]]='hidden';
@@ -157,7 +162,7 @@ angular.module('memoGameApp')
         // if match
         if(eg.previousClick!=-1 && eg.previousClick != id && (eg.randCards[eg.previousClick] == eg.randCards[id])){
             eg.matchCount+=1;
-
+            eg.moves+=1;
             eg.randItemStatus[id] = 'match';
             eg.randViewStatus[id] = 'fadeIn';
 
@@ -172,6 +177,7 @@ angular.module('memoGameApp')
                 eg.previousClick = id;
             }
             else { // if previous click exist
+                eg.moves+=1;
                 eg.randItemStatus[eg.previousClick] = 'rollBack';
                 eg.randViewStatus[eg.previousClick] = 'fadeOut';
 
