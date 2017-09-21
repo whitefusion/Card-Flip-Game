@@ -1,12 +1,11 @@
 # Matching game
 A classic card flip matching game !
+It's a single-page responsive web-application generated with [yo angular generator](https://github.com/yeoman/generator-angular) version 0.16.0.
 
 ![](preview/start.png)
 ![](preview/middle.png)
 ![](preview/end.png)
-
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.16.0.
+![](preview/responsive.png)
 
 ## Build & development
 Make sure you have before running.
